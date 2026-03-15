@@ -1,331 +1,391 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <title>FabLab Generator PRO</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<meta charset="UTF-8">
+<title>FabLab Generator PRO</title>
 
-    <style>
-        :root{
-            --primary:#4f46e5;
-            --bg:#f3f4f6;
-            --card:#ffffff;
-            --border:#e5e7eb;
-        }
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
-        body{
-            margin:0;
-            padding:40px;
-            background:var(--bg);
-            font-family: system-ui, -apple-system, sans-serif;
-        }
+<style>
+:root{
+    --primary:#4f46e5;
+    --bg:#f3f4f6;
+    --card:#ffffff;
+    --border:#e5e7eb;
+}
 
-        .container{
-            max-width:1100px;
-            margin:auto;
-            background:var(--card);
-            padding:30px;
-            border-radius:16px;
-            box-shadow:0 15px 40px rgba(0,0,0,0.08);
-        }
+body{
+    margin:0;
+    padding:40px;
+    background:var(--bg);
+    font-family:system-ui,-apple-system,sans-serif;
+}
 
-        h1{
-            margin-top:0;
-            text-align:center;
-        }
+.container{
+    max-width:1100px;
+    margin:auto;
+    background:var(--card);
+    padding:30px;
+    border-radius:16px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.08);
+}
 
-        .section{
-            margin-top:30px;
-        }
+h1{
+    margin-top:0;
+    text-align:center;
+}
 
-        .grid{
-            display:grid;
-            grid-template-columns:1fr 1fr;
-            gap:20px;
-        }
+.section{
+    margin-top:30px;
+}
 
-        label{
-            font-weight:600;
-            display:block;
-            margin-top:15px;
-        }
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
 
-        input, textarea{
-            width:100%;
-            padding:10px;
-            border-radius:8px;
-            border:1px solid var(--border);
-            margin-top:5px;
-        }
+label{
+    font-weight:600;
+    display:block;
+    margin-top:15px;
+}
 
-        textarea{
-            resize:vertical;
-        }
+input,textarea{
+    width:100%;
+    padding:10px;
+    border-radius:8px;
+    border:1px solid var(--border);
+    margin-top:5px;
+}
 
-        .tag-category{
-            margin-top:20px;
-        }
+textarea{
+    resize:vertical;
+}
 
-        .tag-category h4{
-            margin-bottom:10px;
-            color:var(--primary);
-        }
+.tag-category{
+    margin-top:20px;
+}
 
-        .tags{
-            display:grid;
-            grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
-            gap:8px;
-        }
+.tag-category h4{
+    margin-bottom:10px;
+    color:var(--primary);
+}
 
-        .tag{
-            background:#eef2ff;
-            padding:8px 10px;
-            border-radius:8px;
-            font-size:14px;
-            cursor:pointer;
-            display:flex;
-            align-items:center;
-            gap:8px;
-        }
+.tags{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+    gap:8px;
+}
 
-        .tag input{
-            width:auto;
-        }
+.tag{
+    background:#eef2ff;
+    padding:8px 10px;
+    border-radius:8px;
+    font-size:14px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
 
-        button{
-            margin-top:35px;
-            width:100%;
-            padding:14px;
-            border:none;
-            border-radius:10px;
-            background:var(--primary);
-            color:white;
-            font-size:16px;
-            font-weight:600;
-            cursor:pointer;
-        }
+.tag input{
+    width:auto;
+}
 
-        button:hover{
-            opacity:0.9;
-        }
+button{
+    margin-top:35px;
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    background:var(--primary);
+    color:white;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+}
 
-        .footer{
-            text-align:center;
-            margin-top:20px;
-            font-size:13px;
-            opacity:0.6;
-        }
-    </style>
+button:hover{
+    opacity:0.9;
+}
+
+.footer{
+    text-align:center;
+    margin-top:20px;
+    font-size:13px;
+    opacity:0.6;
+}
+</style>
 </head>
+
 <body>
 
 <div class="container">
-    <h1>FabLab TXT + ZIP Generator</h1>
 
-    <div class="grid">
-        <div>
-            <label>ID numerico</label>
-            <input type="number" id="numId">
+<h1>FabLab TXT + ZIP Generator</h1>
 
-            <label>Nome</label>
-            <input type="text" id="name">
+<div class="grid">
 
-            <label>Via</label>
-            <input type="text" id="street">
+<div>
 
-            <label>Paese</label>
-            <input type="text" id="country">
+<label>ID numerico</label>
+<input type="number" id="numId">
 
-            <label>Provincia (STATO)</label>
-            <input type="text" id="prov">
+<label>Nome</label>
+<input type="text" id="name">
 
-            <label>CAP</label>
-            <input type="text" id="cap">
-        </div>
+<label>Via</label>
+<input type="text" id="street">
 
-        <div>
-            <label>Latitudine</label>
-            <input type="number" step="0.0000001" id="lat">
+<label>Paese</label>
+<input type="text" id="country">
 
-            <label>Longitudine</label>
-            <input type="number" step="0.0000001" id="lng">
+<label>Provincia (STATO)</label>
+<input type="text" id="prov">
 
-            <label>Stato</label>
-            <input type="text" id="state" value="FabLabState.READY">
-        </div>
-    </div>
+<label>CAP</label>
+<input type="text" id="cap">
 
-    <div class="section">
-        <label>Descrizione breve</label>
-        <textarea id="shortDesc"></textarea>
+</div>
 
-        <label>Descrizione lunga</label>
-        <textarea id="longDesc"></textarea>
-    </div>
+<div>
 
-    <div class="section">
-        <h3>Tag</h3>
+<label>Latitudine</label>
+<input type="number" step="0.0000001" id="lat">
 
-        <div id="tagContainer"></div>
+<label>Longitudine</label>
+<input type="number" step="0.0000001" id="lng">
 
-    </div>
+<label>Stato</label>
+<input type="text" id="state" value="FabLabState.READY">
 
-    <div class="section">
-        <h3>Media</h3>
+</div>
 
-        <label>Banner</label>
-        <input type="file" id="banner" accept="image/*">
+</div>
 
-        <label>Foto</label>
-        <input type="file" id="photos" accept="image/*" multiple>
+<div class="section">
 
-        <label>File (PDF, ecc)</label>
-        <input type="file" id="files" multiple>
-    </div>
+<label>Descrizione breve</label>
+<textarea id="shortDesc"></textarea>
 
-    <button onclick="generate()">Genera ZIP</button>
+<label>Descrizione lunga</label>
+<textarea id="longDesc"></textarea>
 
-    <div class="footer">
-        Struttura pronta per /app_data/resources/fablabs/{id}
-    </div>
+</div>
+
+<div class="section">
+
+<h3>Tag</h3>
+
+<div id="tagContainer"></div>
+
+</div>
+
+<div class="section">
+
+<h3>Media</h3>
+
+<label>Banner</label>
+<input type="file" id="banner" accept="image/*">
+
+<label>Foto</label>
+<input type="file" id="photos" accept="image/*" multiple>
+
+<label>File</label>
+<input type="file" id="files" multiple>
+
+</div>
+
+<button onclick="generate()">Genera ZIP</button>
+
+<div class="footer">
+Struttura pronta per /app_data/resources/fablabs/{id}
+</div>
 
 </div>
 
 <script>
-    const TAGS = {
-        "💻 Tecnologia":[
-            "TECH_INFO",
-            "TECH_NETWORKS",
-            "TECH_ELECTRONICS",
-            "TECH_MOBILE",
-            "TECH_WEB",
-            "TECH_DESIGN",
-            "TECH_MECHANICAL"
-        ],
-        "🎨 Arte":[
-            "ART_PAINT",
-            "ART_SCULPTURE",
-            "ART_WRITING",
-            "ART_MUSIC"
-        ],
-        "🧵 Tessile":[
-            "TEXTILE_ECOPRINT",
-            "TEXTILE_TAILORING",
-            "TEXTILE_EMBROIDERY",
-            "TEXTILE_CROCHET",
-            "TEXTILE_PRINTING"
-        ],
-        "🌱 Agricoltura":[
-            "AGRICOLTURE_VEGETABLE_GARDENS",
-            "AGRICOLTURE_HYDROPONIC_GREENHOUSES",
-            "AGRICOLTURE_BEEHIVES",
-            "AGRICOLTURE_COMPOSTING",
-            "AGRICOLTURE_FLORICOLTURE",
-            "AGRICOLTURE_OFFICINAL"
-        ],
-        "🔨 Artigianato":[
-            "CRAFTSMANSHIP_WOOD",
-            "CRAFTSMANSHIP_METAL",
-            "CRAFTSMANSHIP_LEATHER",
-            "CRAFTSMANSHIP_GLASS",
-            "CRAFTSMANSHIP_MECHANICS",
-            "CRAFTSMANSHIP_REPAIR",
-            "CRAFTSMANSHIP_SOAPS"
-        ]
-    };
 
-    const container = document.getElementById("tagContainer");
+const TAGS={
+"💻 Tecnologia":[
+"TECH_INFO",
+"TECH_NETWORKS",
+"TECH_ELECTRONICS",
+"TECH_MOBILE",
+"TECH_WEB",
+"TECH_DESIGN",
+"TECH_MECHANICAL"
+],
+"🎨 Arte":[
+"ART_PAINT",
+"ART_SCULPTURE",
+"ART_WRITING",
+"ART_MUSIC"
+],
+"🧵 Tessile":[
+"TEXTILE_ECOPRINT",
+"TEXTILE_TAILORING",
+"TEXTILE_EMBROIDERY",
+"TEXTILE_CROCHET",
+"TEXTILE_PRINTING"
+],
+"🌱 Agricoltura":[
+"AGRICOLTURE_VEGETABLE_GARDENS",
+"AGRICOLTURE_HYDROPONIC_GREENHOUSES",
+"AGRICOLTURE_BEEHIVES",
+"AGRICOLTURE_COMPOSTING",
+"AGRICOLTURE_FLORICOLTURE",
+"AGRICOLTURE_OFFICINAL"
+],
+"🔨 Artigianato":[
+"CRAFTSMANSHIP_WOOD",
+"CRAFTSMANSHIP_METAL",
+"CRAFTSMANSHIP_LEATHER",
+"CRAFTSMANSHIP_GLASS",
+"CRAFTSMANSHIP_MECHANICS",
+"CRAFTSMANSHIP_REPAIR",
+"CRAFTSMANSHIP_SOAPS"
+]
+};
 
-    for(const category in TAGS){
-        const div = document.createElement("div");
-        div.className="tag-category";
-        div.innerHTML=`<h4>${category}</h4><div class="tags"></div>`;
-        container.appendChild(div);
-        const tagsDiv = div.querySelector(".tags");
+const container=document.getElementById("tagContainer");
 
-        TAGS[category].forEach(tag=>{
-            const label=document.createElement("label");
-            label.className="tag";
-            label.innerHTML=`
-      <input type="checkbox" value="FabLabTag.${tag}">
-      ${tag}
-    `;
-            tagsDiv.appendChild(label);
-        });
-    }
+for(const category in TAGS){
 
-    async function generate(){
+const div=document.createElement("div");
+div.className="tag-category";
+div.innerHTML=`<h4>${category}</h4><div class="tags"></div>`;
+container.appendChild(div);
 
-        const numId=document.getElementById("numId").value;
-        if(!numId) return alert("Inserisci ID");
+const tagsDiv=div.querySelector(".tags");
 
-        const zip=new JSZip();
+TAGS[category].forEach(tag=>{
 
-        const bannerFile=document.getElementById("banner").files[0];
-        if(!bannerFile) return alert("Carica banner");
+const label=document.createElement("label");
+label.className="tag";
 
-        const photos=[...document.getElementById("photos").files];
-        const files=[...document.getElementById("files").files];
+label.innerHTML=`
+<input type="checkbox" value="FabLabTag.${tag}">
+${tag}
+`;
 
-        const bannerDir=zip.folder(`fablabs/${numId}/banner`);
-        const photosDir=zip.folder(`fablabs/${numId}/photos`);
-        const filesDir=zip.folder(`fablabs/${numId}/files`);
+tagsDiv.appendChild(label);
 
-        const bannerExt=bannerFile.name.match(/\..+$/);
-        bannerDir.file("banner"+bannerExt, await bannerFile.arrayBuffer());
+});
 
-        let photoPaths=[];
-        for(let i=0;i<photos.length;i++){
-            const ext=photos[i].name.match(/\..+$/);
-            const name=`${i+1}${ext}`;
-            photoPaths.push(`"/app_data/resources/fablabs/${numId}/photos/${name}"`);
-            photosDir.file(name, await photos[i].arrayBuffer());
-        }
+}
 
-        let fileRefs=[];
-        for(let f of files){
-            filesDir.file(f.name, await f.arrayBuffer());
-            fileRefs.push(`new FileReference("${f.name}", "/app_data/resources/fablabs/${numId}/files/${f.name}", FileType.DOCUMENT)`);
-        }
+function escapeString(str){
 
-        const selectedTags=[...document.querySelectorAll("input[type=checkbox]:checked")]
-            .map(cb=>cb.value)
-            .join(",\n        ");
+return str
+.replace(/\\/g,"\\\\")
+.replace(/"/g,'\\"')
+.replace(/\n/g,"\\n")
+.replace(/\r/g,"");
 
-        const txt=`
+}
+
+async function generate(){
+
+const numId=document.getElementById("numId").value;
+if(!numId) return alert("Inserisci ID");
+
+const zip=new JSZip();
+
+const bannerFile=document.getElementById("banner").files[0];
+if(!bannerFile) return alert("Carica banner");
+
+const photos=[...document.getElementById("photos").files];
+const files=[...document.getElementById("files").files];
+
+const bannerDir=zip.folder(`fablabs/${numId}/banner`);
+const photosDir=zip.folder(`fablabs/${numId}/photos`);
+const filesDir=zip.folder(`fablabs/${numId}/files`);
+
+const bannerExt=bannerFile.name.match(/\..+$/);
+
+bannerDir.file(
+"banner"+bannerExt,
+await bannerFile.arrayBuffer()
+);
+
+let photoPaths=[];
+
+for(let i=0;i<photos.length;i++){
+
+const ext=photos[i].name.match(/\..+$/);
+const name=`${i+1}${ext}`;
+
+photoPaths.push(
+`"/app_data/resources/fablabs/${numId}/photos/${name}"`
+);
+
+photosDir.file(
+name,
+await photos[i].arrayBuffer()
+);
+
+}
+
+let fileRefs=[];
+
+for(let f of files){
+
+filesDir.file(
+f.name,
+await f.arrayBuffer()
+);
+
+fileRefs.push(
+`new FileReference("${f.name}","/app_data/resources/fablabs/${numId}/files/${f.name}",FileType.DOCUMENT)`
+);
+
+}
+
+const selectedTags=[...document.querySelectorAll("input[type=checkbox]:checked")]
+.map(cb=>cb.value)
+.join(", ");
+
+const shortDesc=escapeString(
+document.getElementById("shortDesc").value
+);
+
+const longDesc=escapeString(
+document.getElementById("longDesc").value
+);
+
+const txt=`
 new FabLab(
-    ${numId},
-    "${document.getElementById("name").value}",
-    "${document.getElementById("street").value}",
-    "${document.getElementById("country").value}",
-    "${document.getElementById("prov").value}",
-    ${document.getElementById("cap").value},
-    "${document.getElementById("shortDesc").value}",
-    "${document.getElementById("longDesc").value}",
-    [
-        ${selectedTags}
-    ],
-    ${document.getElementById("state").value},
-    "/app_data/resources/fablabs/${numId}/banner/banner${bannerExt}",
-    [
-        ${photoPaths.join(",\n        ")}
-    ],
-    [
-        ${fileRefs.join(",\n        ")}
-    ],
-    ${document.getElementById("lat").value},
-    ${document.getElementById("lng").value}
+${numId},
+"${escapeString(document.getElementById("name").value)}",
+"${escapeString(document.getElementById("street").value)}",
+"${escapeString(document.getElementById("country").value)}",
+"${escapeString(document.getElementById("prov").value)}",
+${document.getElementById("cap").value},
+"${shortDesc}",
+"${longDesc}",
+[${selectedTags}],
+${document.getElementById("state").value},
+"/app_data/resources/fablabs/${numId}/banner/banner${bannerExt}",
+[${photoPaths.join(", ")}],
+[${fileRefs.join(", ")}],
+${document.getElementById("lat").value},
+${document.getElementById("lng").value}
 ),
 `.trim();
 
-        zip.file(`fablab_${numId}.txt`,txt);
+zip.file(`fablab_${numId}.txt`,txt);
 
-        const blob=await zip.generateAsync({type:"blob"});
-        const a=document.createElement("a");
-        a.href=URL.createObjectURL(blob);
-        a.download=`fablab_${numId}.zip`;
-        a.click();
-    }
+const blob=await zip.generateAsync({type:"blob"});
+
+const a=document.createElement("a");
+a.href=URL.createObjectURL(blob);
+a.download=`fablab_${numId}.zip`;
+a.click();
+
+}
+
 </script>
 
 </body>
